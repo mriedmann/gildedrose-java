@@ -1,0 +1,11 @@
+language: java
+
+addons:
+  sonarcloud:
+    organization: "mriedmann"
+    token:
+      secure: "rktn1WLGbqlRQv2zBXcghGbAufou4qEHEeTmA2Y2ogkDpwDzJeugoiJel7ZpJ2kOyxLbf+kXOVTThVbQf9MJRl9MkeMLuLzHQ42SzFMTs+WhGGTtX8Pw1mTzIIk31HHoZk5OfwOR9DjpT5NBximwvEEQLAfn4QlsYgTskpnQFd3P7Z8hZucLNJ9K4lm6FsuFpDn8khCGsTzfJUGY27DBcHlewsI5ZZSkvSUQPv4VnHn1BXOA+QRfnryDwhtWbfk5qKceXd58wuF3GZeZbhSmfrBCDvyChy9gy1j4EE9o7n6J/jNk0WSZUV1hJb+TBK4UEFQ/fP/TY6EbX2VJca4VvrZna7yvyCGjj7WHXVgRG6531wC2fMSXAq62fcpYpSKz/80SiqOZA5eEbOtWF1/qMG5suMdGJ7KYQi06t4IolxHGpY77eR421Ec+EyH6kThj/+a1smRNaMLfULF9CLSwFlHCc5UghIXRZJ+H9aYbcD+hnq+zaXxyabLWv4CGCt16McnGtqdkeAIkv7F3PzKRHd7yIHfhpiLscWpUlj6pksGgNqeVgc9shVzhtD2Go6he0iIK5tM/91z4CSP8OLBUOI7Z4MCLI02HxNA5NeVToPiJ/92I5OgoWip0RNutWcn9rARxoY+UzqPdtz2+zg4Dmd/zlzx60WmX/R97FFu3x5M="
+
+script:
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=mriedmann_gildedrose-java
