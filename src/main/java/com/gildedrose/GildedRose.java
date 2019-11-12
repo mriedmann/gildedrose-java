@@ -18,68 +18,118 @@ class GildedRose {
     }
 
     private void updateItem(Item item) {
+        UpdatableItem updatableItem;
         switch (item.name) {
             case SULFURAS:
-                //Legendary Items do not change
+                updatableItem = new LegendaryItem(item);
                 break;
             case AGED_BRIE:
-                handleAgedBrieUpdate(item);
+                updatableItem = new AgedBrie(item);
                 break;
             case BACKSTAGE_PASSES:
-                handleBackstagePassesUpdate(item);
+                updatableItem = new BackstagePass(item);
                 break;
             default:
-                handleDefaultItemUpdate(item);
+                updatableItem = new DefaultItem(item);
                 break;
         }
+        updatableItem.update();
     }
 
-    private void handleDefaultItemUpdate(Item item) {
-        item.sellIn = item.sellIn - 1;
-
-        if (item.quality > 0) {
-            item.quality = item.quality - 1;
-        }
-
-        if (item.quality > 0 && item.sellIn < 0) {
-            item.quality = item.quality - 1;
-        }
+    interface UpdatableItem {
+        void update();
     }
 
-    private void handleBackstagePassesUpdate(Item item) {
-        item.sellIn = item.sellIn - 1;
+    abstract class UpdatableItemDecorator implements UpdatableItem {
+        protected final Item item;
 
-        if (item.sellIn < 0) {
-            item.quality = 0;
-            return;
-        }
-
-        if (item.quality >= 50) {
-            return;
-        }
-
-        item.quality = item.quality + 1;
-
-        if (item.sellIn < 10 && item.quality < 50) {
-            item.quality = item.quality + 1;
-        }
-
-        if (item.sellIn < 5 && item.quality < 50) {
-            item.quality = item.quality + 1;
+        public UpdatableItemDecorator(Item item){
+            this.item = item;
         }
     }
 
-    private void handleAgedBrieUpdate(Item item) {
-        item.sellIn = item.sellIn - 1;
+    class DefaultItem extends UpdatableItemDecorator {
 
-        if (item.quality >= 50) {
-            return;
+        public DefaultItem(Item item) {
+            super(item);
         }
 
-        item.quality = item.quality + 1;
+        @Override
+        public void update() {
+            item.sellIn = item.sellIn - 1;
 
-        if (item.sellIn < 0) {
+            if (item.quality > 0) {
+                item.quality = item.quality - 1;
+            }
+
+            if (item.quality > 0 && item.sellIn < 0) {
+                item.quality = item.quality - 1;
+            }
+        }
+    }
+
+    class LegendaryItem extends UpdatableItemDecorator {
+
+        public LegendaryItem(Item item) {
+            super(item);
+        }
+
+        @Override
+        public void update() {
+            //Legendary Items do not change
+        }
+    }
+
+    class BackstagePass extends UpdatableItemDecorator {
+
+        public BackstagePass(Item item) {
+            super(item);
+        }
+
+        @Override
+        public void update() {
+            item.sellIn = item.sellIn - 1;
+
+            if (item.sellIn < 0) {
+                item.quality = 0;
+                return;
+            }
+
+            if (item.quality >= 50) {
+                return;
+            }
+
             item.quality = item.quality + 1;
+
+            if (item.sellIn < 10 && item.quality < 50) {
+                item.quality = item.quality + 1;
+            }
+
+            if (item.sellIn < 5 && item.quality < 50) {
+                item.quality = item.quality + 1;
+            }
+        }
+    }
+
+    class AgedBrie extends UpdatableItemDecorator {
+
+        public AgedBrie(Item item) {
+            super(item);
+        }
+
+        @Override
+        public void update() {
+            item.sellIn = item.sellIn - 1;
+
+            if (item.quality >= 50) {
+                return;
+            }
+
+            item.quality = item.quality + 1;
+
+            if (item.sellIn < 0) {
+                item.quality = item.quality + 1;
+            }
         }
     }
 }
