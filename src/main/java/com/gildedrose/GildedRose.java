@@ -19,11 +19,13 @@ class GildedRose {
 
     private void updateItem(Item item) {
         if(item.name.equals(SULFURAS)){
-            return;
-        }
-
-        if (item.name.equals(AGED_BRIE)) {
+            //Legendary Items do not change
+        } else if (item.name.equals(AGED_BRIE)) {
             if (item.quality < 50) {
+                item.quality = item.quality + 1;
+            }
+            item.sellIn = item.sellIn - 1;
+            if (item.sellIn < 0 && item.quality < 50) {
                 item.quality = item.quality + 1;
             }
         } else if (item.name.equals(BACKSTAGE_PASSES)) {
@@ -38,23 +40,15 @@ class GildedRose {
                     item.quality = item.quality + 1;
                 }
             }
-        } else {
-            if (item.quality > 0) {
-                item.quality = item.quality - 1;
-            }
-        }
-
-        item.sellIn = item.sellIn - 1;
-
-        if (item.name.equals(AGED_BRIE)) {
-            if (item.sellIn < 0 && item.quality < 50) {
-                item.quality = item.quality + 1;
-            }
-        } else if (item.name.equals(BACKSTAGE_PASSES)) {
+            item.sellIn = item.sellIn - 1;
             if (item.sellIn < 0) {
                 item.quality = 0;
             }
         } else {
+            if (item.quality > 0) {
+                item.quality = item.quality - 1;
+            }
+            item.sellIn = item.sellIn - 1;
             if (item.sellIn < 0 && item.quality > 0) {
                 item.quality = item.quality - 1;
             }
