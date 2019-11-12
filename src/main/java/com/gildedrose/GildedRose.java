@@ -35,39 +35,50 @@ class GildedRose {
     }
 
     private void handleDefaultItemUpdate(Item item) {
+        item.sellIn = item.sellIn - 1;
+
         if (item.quality > 0) {
             item.quality = item.quality - 1;
         }
-        item.sellIn = item.sellIn - 1;
-        if (item.sellIn < 0 && item.quality > 0) {
+
+        if (item.quality > 0 && item.sellIn < 0) {
             item.quality = item.quality - 1;
         }
     }
 
     private void handleBackstagePassesUpdate(Item item) {
-        if (item.quality < 50) {
-            item.quality = item.quality + 1;
-
-            if (item.sellIn < 11 && item.quality < 50) {
-                item.quality = item.quality + 1;
-            }
-
-            if (item.sellIn < 6 && item.quality < 50) {
-                item.quality = item.quality + 1;
-            }
-        }
         item.sellIn = item.sellIn - 1;
+
         if (item.sellIn < 0) {
             item.quality = 0;
+            return;
+        }
+
+        if (item.quality >= 50) {
+            return;
+        }
+
+        item.quality = item.quality + 1;
+
+        if (item.sellIn < 10 && item.quality < 50) {
+            item.quality = item.quality + 1;
+        }
+
+        if (item.sellIn < 5 && item.quality < 50) {
+            item.quality = item.quality + 1;
         }
     }
 
     private void handleAgedBrieUpdate(Item item) {
-        if (item.quality < 50) {
-            item.quality = item.quality + 1;
-        }
         item.sellIn = item.sellIn - 1;
-        if (item.sellIn < 0 && item.quality < 50) {
+
+        if (item.quality >= 50) {
+            return;
+        }
+
+        item.quality = item.quality + 1;
+
+        if (item.sellIn < 0) {
             item.quality = item.quality + 1;
         }
     }
