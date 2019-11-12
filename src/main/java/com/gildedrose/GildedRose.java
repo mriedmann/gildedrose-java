@@ -18,40 +18,57 @@ class GildedRose {
     }
 
     private void updateItem(Item item) {
-        if(item.name.equals(SULFURAS)){
-            //Legendary Items do not change
-        } else if (item.name.equals(AGED_BRIE)) {
-            if (item.quality < 50) {
-                item.quality = item.quality + 1;
-            }
-            item.sellIn = item.sellIn - 1;
-            if (item.sellIn < 0 && item.quality < 50) {
-                item.quality = item.quality + 1;
-            }
-        } else if (item.name.equals(BACKSTAGE_PASSES)) {
-            if (item.quality < 50) {
-                item.quality = item.quality + 1;
+        switch (item.name) {
+            case SULFURAS:
+                //Legendary Items do not change
+                break;
+            case AGED_BRIE:
+                handleAgedBrieUpdate(item);
+                break;
+            case BACKSTAGE_PASSES:
+                handleBackstagePassesUpdate(item);
+                break;
+            default:
+                handleDefaultItemUpdate(item);
+                break;
+        }
+    }
 
-                if (item.sellIn < 11 && item.quality < 50) {
-                    item.quality = item.quality + 1;
-                }
+    private void handleDefaultItemUpdate(Item item) {
+        if (item.quality > 0) {
+            item.quality = item.quality - 1;
+        }
+        item.sellIn = item.sellIn - 1;
+        if (item.sellIn < 0 && item.quality > 0) {
+            item.quality = item.quality - 1;
+        }
+    }
 
-                if (item.sellIn < 6 && item.quality < 50) {
-                    item.quality = item.quality + 1;
-                }
+    private void handleBackstagePassesUpdate(Item item) {
+        if (item.quality < 50) {
+            item.quality = item.quality + 1;
+
+            if (item.sellIn < 11 && item.quality < 50) {
+                item.quality = item.quality + 1;
             }
-            item.sellIn = item.sellIn - 1;
-            if (item.sellIn < 0) {
-                item.quality = 0;
+
+            if (item.sellIn < 6 && item.quality < 50) {
+                item.quality = item.quality + 1;
             }
-        } else {
-            if (item.quality > 0) {
-                item.quality = item.quality - 1;
-            }
-            item.sellIn = item.sellIn - 1;
-            if (item.sellIn < 0 && item.quality > 0) {
-                item.quality = item.quality - 1;
-            }
+        }
+        item.sellIn = item.sellIn - 1;
+        if (item.sellIn < 0) {
+            item.quality = 0;
+        }
+    }
+
+    private void handleAgedBrieUpdate(Item item) {
+        if (item.quality < 50) {
+            item.quality = item.quality + 1;
+        }
+        item.sellIn = item.sellIn - 1;
+        if (item.sellIn < 0 && item.quality < 50) {
+            item.quality = item.quality + 1;
         }
     }
 }
