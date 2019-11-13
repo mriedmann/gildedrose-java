@@ -2,6 +2,7 @@ package com.gildedrose;
 
 import static org.junit.Assert.*;
 
+import com.gildedrose.items.UpdatableItemFactoryImpl;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -48,7 +49,7 @@ public class GildedRoseTest {
     @Before
     public void before() {
         items = Arrays.stream(prototypes).toArray(Item[]::new);
-        app = new GildedRose(items);
+        app = new GildedRose(items, new UpdatableItemFactoryImpl());
     }
 
     @Test
