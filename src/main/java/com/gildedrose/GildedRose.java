@@ -20,6 +20,4 @@ class GildedRose {
         UpdatableItem updatableItem = itemFactory.getUpdatableItem(item);
         updatableItem.update();
     }
-
-
 }

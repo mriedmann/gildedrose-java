@@ -9,7 +9,7 @@ public class UpdatableItemFactoryImpl implements UpdatableItemFactory {
     private static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
     private static final String AGED_BRIE = "Aged Brie";
 
-    public UpdatableItem getUpdatableItem(Item item){
+    public UpdatableItem getUpdatableItem(Item item) {
         switch (item.name) {
             case SULFURAS:
                 return new LegendaryItem(item);

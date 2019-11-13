@@ -4,7 +4,7 @@ import com.gildedrose.Item;
 
 class DefaultItem extends AbstractUpdatableItem {
 
-    public DefaultItem(Item item) {
+    DefaultItem(Item item) {
         super(item);
     }
 

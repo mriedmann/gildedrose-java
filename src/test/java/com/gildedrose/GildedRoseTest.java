@@ -7,13 +7,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 public class GildedRoseTest {
 
-    private Item[] items;
     private GildedRose app;
 
     private final int ITEM_FOO = 0;
@@ -54,7 +50,7 @@ public class GildedRoseTest {
 
     @Before
     public void before() {
-        items = Arrays.stream(prototypes).toArray(Item[]::new);
+        Item[] items = Arrays.stream(prototypes).toArray(Item[]::new);
         app = new GildedRose(items, new UpdatableItemFactoryImpl());
     }
 

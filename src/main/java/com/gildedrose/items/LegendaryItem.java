@@ -4,7 +4,7 @@ import com.gildedrose.Item;
 
 class LegendaryItem extends AbstractUpdatableItem {
 
-    public LegendaryItem(Item item) {
+    LegendaryItem(Item item) {
         super(item);
     }
 

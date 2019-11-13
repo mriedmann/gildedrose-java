@@ -4,7 +4,7 @@ import com.gildedrose.Item;
 
 class BackstagePass extends AbstractUpdatableItem {
 
-    public BackstagePass(Item item) {
+    BackstagePass(Item item) {
         super(item);
     }
 

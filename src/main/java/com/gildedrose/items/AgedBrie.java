@@ -4,7 +4,7 @@ import com.gildedrose.Item;
 
 class AgedBrie extends AbstractUpdatableItem {
 
-    public AgedBrie(Item item) {
+    AgedBrie(Item item) {
         super(item);
     }
 
