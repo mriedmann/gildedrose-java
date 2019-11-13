@@ -26,6 +26,9 @@ public class GildedRoseTest {
     private final int ITEM_BACKSTAGE_PASS_10 = 7;
     private final int ITEM_BACKSTAGE_PASS_5 = 8;
     private final int ITEM_MANA_CAKE = 9;
+    private final int ITEM_BACKSTAGE_PASS_15_50 = 10;
+    private final int ITEM_BACKSTAGE_PASS_10_49 = 11;
+    private final int ITEM_BACKSTAGE_PASS_5_48 = 12;
 
     private final Item[] prototypes = new Item[]{
             new Item("foo", 0, 1),
@@ -37,7 +40,10 @@ public class GildedRoseTest {
             new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
             new Item("Backstage passes to a TAFKAL80ETC concert", 10, 20),
             new Item("Backstage passes to a TAFKAL80ETC concert", 5, 20),
-            new Item("Conjured Mana Cake", 3, 6)
+            new Item("Conjured Mana Cake", 3, 6),
+            new Item("Backstage passes to a TAFKAL80ETC concert", 15, 50),
+            new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
+            new Item("Backstage passes to a TAFKAL80ETC concert", 5, 48),
     };
 
     private void daysPast(int days) {
@@ -114,6 +120,24 @@ public class GildedRoseTest {
     public void backstagePassIncreaseQualityBy3When5DaysLeft() {
         daysPast(2);
         assertEquals(26, app.items[ITEM_BACKSTAGE_PASS_5].quality);
+    }
+
+    @Test
+    public void backstagePassIncreaseQualityButStopAt50() {
+        daysPast(2);
+        assertEquals(50, app.items[ITEM_BACKSTAGE_PASS_15_50].quality);
+    }
+
+    @Test
+    public void backstagePassIncreaseQualityBy2When10DaysLeftButStopAt50() {
+        daysPast(2);
+        assertEquals(50, app.items[ITEM_BACKSTAGE_PASS_10_49].quality);
+    }
+
+    @Test
+    public void backstagePassIncreaseQualityBy3When5DaysLeftButStopAt50() {
+        daysPast(2);
+        assertEquals(50, app.items[ITEM_BACKSTAGE_PASS_5_48].quality);
     }
 
     @Test
